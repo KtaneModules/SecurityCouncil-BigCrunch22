@@ -107,6 +107,7 @@ public class SecurityCouncilScript : MonoBehaviour
 	void Press(int Numbered)
 	{
 		Buttons[Numbered].AddInteractionPunch(.2f);
+		Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
 		if (!ModuleSolved)
 		{
 			if (AbleToBeTouched)
@@ -192,7 +193,6 @@ public class SecurityCouncilScript : MonoBehaviour
 					else
 					{
 						Module.HandleStrike();
-						Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
 						Debug.LogFormat("[Security Council #{0}] The action selected is not the right action to take based on the count of the vote.", moduleId);
 					}
 				}
@@ -397,10 +397,12 @@ public class SecurityCouncilScript : MonoBehaviour
 							break;
 						}
 					}
+					
 					if (Basis != "")
 					{
 						BasisToBeAdd = Array.IndexOf(Alphabet, Basis) + 1;
 					}
+					
 					if ((Int32.Parse(StageNumber.text) + BasisToBeAdd) % 4 == 0)
 					{
 						ScoreJudge++;
@@ -415,6 +417,7 @@ public class SecurityCouncilScript : MonoBehaviour
 						{
 							TenNumbers++;
 						}
+						
 						if (TenNumbers > 10)
 						{
 							ScoreJudge++;
@@ -522,12 +525,12 @@ public class SecurityCouncilScript : MonoBehaviour
 						{
 							CheckIn++;
 						}
-						if (CheckIn < 9)
-						{
-							ScoreJudge++;
-							Judgement.Add("Malaysia");
-							break;
-						}
+					}
+					
+					if (CheckIn < 9)
+					{
+						ScoreJudge++;
+						Judgement.Add("Malaysia");
 					}
 					break;
 				case "Mali":
