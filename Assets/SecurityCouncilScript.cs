@@ -339,7 +339,8 @@ public class SecurityCouncilScript : MonoBehaviour
 		
 		bool IrelandIsCheck = true;
 		//UK
-		if (Attacks[ActualStage-1].Length == 2)
+		string[] Mechanon = Attacks[ActualStage-1].Split(' ');
+		if (Mechanon.Length == 2)
 		{
 			NoneApplied = false;
 			ScoreJudge++;
@@ -359,7 +360,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			Barcode = Guide.ToString();
 		}
 		
-		if (Barcode == Bomb.GetSerialNumberNumbers().Last().ToString() || Barcode == Bomb.GetSerialNumberNumbers().First().ToString())
+		if (Int32.Parse(Barcode) == Bomb.GetSerialNumberNumbers().Last() || Int32.Parse(Barcode) == Bomb.GetSerialNumberNumbers().First())
 		{
 			NoneApplied = false;
 			ScoreJudge++;
@@ -548,7 +549,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					}
 					break;
 				case "Slovakia":
-					if ((Bomb.GetSolvedModuleNames().Count() + 1) % Int32.Parse(StageNumber.text) == 0)
+					if ((Bomb.GetSolvableModuleNames().Count() + 1) % Int32.Parse(StageNumber.text) == 0)
 					{
 						ScoreJudge++;
 						Judgement.Add("Slovakia");
