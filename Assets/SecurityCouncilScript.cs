@@ -549,7 +549,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					}
 					break;
 				case "Slovakia":
-					if ((Bomb.GetSolvableModuleNames().Count() + 1) % Int32.Parse(StageNumber.text) == 0)
+					if (Int32.Parse(StageNumber.text) % (Bomb.GetSolvableModuleNames().Count() + 1) == 0)
 					{
 						ScoreJudge++;
 						Judgement.Add("Slovakia");
@@ -563,7 +563,7 @@ public class SecurityCouncilScript : MonoBehaviour
 						Count += Attacks[ActualStage-1].ToUpper().ToCharArray().Count(c => c == AnotherVowels[x]);
 					}
 					
-					if (Count % Int32.Parse(StageNumber.text) == 0)
+					if (Int32.Parse(StageNumber.text) % Count == 0)
 					{
 						ScoreJudge++;
 						Judgement.Add("Slovenia");
