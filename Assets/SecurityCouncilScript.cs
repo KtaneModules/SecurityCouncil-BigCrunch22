@@ -737,7 +737,7 @@ public class SecurityCouncilScript : MonoBehaviour
 	
 	//twitch plays
     #pragma warning disable 414
-    private readonly string TwitchHelpMessage = @"To press a certain button on the module, use the command !{0} [peace/delibreate/miliary]";
+    private readonly string TwitchHelpMessage = @"To press a certain button on the module, use the command !{0} [peace/delibreate/military]";
     #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
@@ -761,7 +761,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			}
         }
 		
-		if (Regex.IsMatch(command, @"^\s*war\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+		if (Regex.IsMatch(command, @"^\s*military\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 			Buttons[1].OnInteract();
