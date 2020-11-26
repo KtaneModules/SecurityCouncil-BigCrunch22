@@ -23,13 +23,13 @@ public class SecurityCouncilScript : MonoBehaviour
 	private string[] IgnoredModules;
 	int ActualStage = 0;
 	int MaxStage;
+	bool TPCorrect = false;
 	
 	bool YouCanPress = false;
 	List<string> Attacks = new List<string>();
 	int ScoreJudge = 0;
 	bool StillSolving = false, FinalInput = false, AbleToBeTouched = false;
 	int[] Score = {0, 0, 0};
-	bool IsCounting = false;
 	
 	
 	//Logging
@@ -165,8 +165,9 @@ public class SecurityCouncilScript : MonoBehaviour
 				
 				else
 				{
-					if ((Numbered == 0 && ScoreJudge <= 2) || ((Numbered == 1 && ScoreJudge == 3) || (Numbered == 2 && ScoreJudge >= 4)))
+					if ((Numbered == 0 && ScoreJudge < 3) || ((Numbered == 1 && ScoreJudge == 3) || (Numbered == 2 && ScoreJudge > 3)))
 					{
+						TPCorrect = true;
 						StillSolving = false;
 						ModuleName.text = "";
 						Score[Numbered]++;
@@ -175,7 +176,8 @@ public class SecurityCouncilScript : MonoBehaviour
 							AbleToBeTouched = false;
 							Debug.LogFormat("[Security Council #{0}] The action select was the right.", moduleId);
 						}
-						if (ActualStage == MaxStage)
+						
+						else
 						{
 							StageNumber.text = "";
 							HigherUps.Shuffle();
@@ -688,11 +690,8 @@ public class SecurityCouncilScript : MonoBehaviour
 	{
 		if (ActualStage < Bomb.GetSolvedModuleNames().Where(a => !IgnoredModules.Contains(a)).Count() && !ModuleSolved)
         {
-			if (!IsCounting)
-			{
-				IsCounting = true;
-				CheckingForIt();
-			}
+			TPCorrect = false;
+			CheckingForIt();
 		}
 	}
 	
@@ -726,7 +725,6 @@ public class SecurityCouncilScript : MonoBehaviour
 		}
 		SolveThis();
 		AbleToBeTouched = true;
-		IsCounting = false;
 	}
 	
 	bool CanUpdateCounterNonBoss()
@@ -737,7 +735,7 @@ public class SecurityCouncilScript : MonoBehaviour
 	
 	//twitch plays
     #pragma warning disable 414
-    private readonly string TwitchHelpMessage = @"To press a certain button on the module, use the command !{0} [peace/delibreate/military]";
+    private readonly string TwitchHelpMessage = @"To press a certain button on the module, use the command !{0} [peace/deliberate/military]";
     #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
@@ -745,29 +743,32 @@ public class SecurityCouncilScript : MonoBehaviour
         {
             yield return null;
 			Buttons[0].OnInteract();
-			if (AbleToBeTouched && !FinalInput && ScoreJudge <= 2)
+			if (TPCorrect)
 			{
 				yield return "awardpoints 1";
+				TPCorrect = false;
 			}
         }
 		
-		if (Regex.IsMatch(command, @"^\s*delibreate\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+		if (Regex.IsMatch(command, @"^\s*deliberate\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 			Buttons[1].OnInteract();
-			if (AbleToBeTouched && !FinalInput && ScoreJudge == 3)
+			if (TPCorrect)
 			{
 				yield return "awardpoints 1";
+				TPCorrect = false;
 			}
         }
 		
 		if (Regex.IsMatch(command, @"^\s*military\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
-			Buttons[1].OnInteract();
-			if (AbleToBeTouched && !FinalInput && ScoreJudge >= 4)
+			Buttons[2].OnInteract();
+			if (TPCorrect)
 			{
 				yield return "awardpoints 1";
+				TPCorrect = false;
 			}
         }
 	}
