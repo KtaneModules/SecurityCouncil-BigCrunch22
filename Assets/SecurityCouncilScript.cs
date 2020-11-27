@@ -25,7 +25,6 @@ public class SecurityCouncilScript : MonoBehaviour
 	int MaxStage;
 	bool TPCorrect = false;
 	
-	bool YouCanPress = false;
 	List<string> Attacks = new List<string>();
 	int ScoreJudge = 0;
 	bool StillSolving = false, FinalInput = false, AbleToBeTouched = false;
@@ -165,7 +164,7 @@ public class SecurityCouncilScript : MonoBehaviour
 				
 				else
 				{
-					if ((Numbered == 0 && ScoreJudge < 3) || ((Numbered == 1 && ScoreJudge == 3) || (Numbered == 2 && ScoreJudge > 3)))
+					if ((Numbered == 0 && ScoreJudge < 4) || ((Numbered == 1 && ScoreJudge == 4) || (Numbered == 2 && ScoreJudge > 4)))
 					{
 						TPCorrect = true;
 						StillSolving = false;
