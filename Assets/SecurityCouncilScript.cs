@@ -118,13 +118,17 @@ public class SecurityCouncilScript : MonoBehaviour
 						if (Score[0] >= Score[1] && Score[0] >= Score[2])
 						{
 							Endline();
-							Debug.LogFormat("[Security Council #{0}] The council meeting has come to a conclusion. The council meeting has concluded.", moduleId);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}.", moduleId, Mocha[Numbered]);
+							Debug.LogFormat("[Security Council #{0}] The council meeting has concluded.", moduleId);
 						}
 						
 						else
 						{
 							Module.HandleStrike();
 							Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}.", moduleId, Mocha[Numbered]);
 							Debug.LogFormat("[Security Council #{0}] The council is coming to a conclusion, but the action being taken is incorrect.", moduleId);
 						}
 					}
@@ -134,13 +138,17 @@ public class SecurityCouncilScript : MonoBehaviour
 						if (Score[1] >= Score[2] && Score[1] >= Score[0])
 						{
 							Endline();
-							Debug.LogFormat("[Security Council #{0}] The council meeting has come to a conclusion. The council meeting has concluded.", moduleId);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}.", moduleId, Mocha[Numbered]);
+							Debug.LogFormat("[Security Council #{0}] The council meeting has concluded.", moduleId);
 						}
 						
 						else
 						{
 							Module.HandleStrike();
 							Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}.", moduleId, Mocha[Numbered]);
 							Debug.LogFormat("[Security Council #{0}] The council is coming to a conclusion, but the action being taken is incorrect.", moduleId);
 						}
 					}
@@ -150,13 +158,17 @@ public class SecurityCouncilScript : MonoBehaviour
 						if (Score[2] >= Score[1] && Score[2] >= Score[0])
 						{
 							Endline();
-							Debug.LogFormat("[Security Council #{0}] The council meeting has come to a conclusion. The council meeting has concluded.", moduleId);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}.", moduleId, Mocha[Numbered]);
+							Debug.LogFormat("[Security Council #{0}] The council meeting has concluded.", moduleId);
 						}
 						
 						else
 						{
 							Module.HandleStrike();
 							Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}.", moduleId, Mocha[Numbered]);
 							Debug.LogFormat("[Security Council #{0}] The council is coming to a conclusion, but the action being taken is incorrect.", moduleId);
 						}
 					}
@@ -173,7 +185,8 @@ public class SecurityCouncilScript : MonoBehaviour
 						if (ActualStage != MaxStage)
 						{
 							AbleToBeTouched = false;
-							Debug.LogFormat("[Security Council #{0}] The action select was the right.", moduleId);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}. The action selected was right.", moduleId, Mocha[Numbered]);
 						}
 						
 						else
@@ -185,7 +198,8 @@ public class SecurityCouncilScript : MonoBehaviour
 							{
 								FlagsImages[x].sprite = HigherUps[x];
 							}
-							Debug.LogFormat("[Security Council #{0}] The action select was the right.", moduleId);
+							string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+							Debug.LogFormat("[Security Council #{0}] The selected action was {1}. The action selected was right.", moduleId, Mocha[Numbered]);
 							Debug.LogFormat("[Security Council #{0}] The council meeting is reaching its conclusion.", moduleId);
 							Debug.LogFormat("[Security Council #{0}] The count for each action: Establish Peace - {1}, Deliberate - {2}, Authorize Military Force - {3}", moduleId, Score[0].ToString(), Score[1].ToString(), Score[2].ToString());
 						}
@@ -194,7 +208,8 @@ public class SecurityCouncilScript : MonoBehaviour
 					else
 					{
 						Module.HandleStrike();
-						Debug.LogFormat("[Security Council #{0}] The action selected is not the right action to take based on the count of the vote.", moduleId);
+						string[] Mocha = {"establishing peace", "deliberation", "authorizing military force"};
+						Debug.LogFormat("[Security Council #{0}] The selected action was {1}. The action selected is not the right action to take based on the count of the vote.", moduleId, Mocha[Numbered]);
 					}
 				}
 			}
@@ -202,6 +217,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			else
 			{
 				Module.HandleStrike();
+				Debug.LogFormat("[Security Council #{0}] The council was alerted to an action while no information was available.", moduleId);
 				Audio.PlayGameSoundAtTransform(KMSoundOverride.SoundEffect.ButtonPress, transform);
 			}
 		}
@@ -710,17 +726,16 @@ public class SecurityCouncilScript : MonoBehaviour
 			}
 			Attacks.AddRange(list2);
 		}
-		
 		ActualStage++;
-		if (ActualStage % 5 == 0)
-		{
-			Debug.LogFormat("[Security Council #{0}] A new set of non-permanent members is seating on the council!", moduleId);
-			Randomize();
-		}
 		if (StillSolving)
 		{
-			Debug.LogFormat("[Security Council #{0}] The council was disturbed with an unnoticed arrival of new information", moduleId);
+			Debug.LogFormat("[Security Council #{0}] The council was disturbed with an unnoticed arrival of new information.", moduleId);
 			Module.HandleStrike();
+		}
+		if (ActualStage % 5 == 0)
+		{
+			Debug.LogFormat("[Security Council #{0}] A new set of non-permanent members are seating on the council!", moduleId);
+			Randomize();
 		}
 		SolveThis();
 		AbleToBeTouched = true;
@@ -734,11 +749,11 @@ public class SecurityCouncilScript : MonoBehaviour
 	
 	//twitch plays
     #pragma warning disable 414
-    private readonly string TwitchHelpMessage = @"To press a certain button on the module, use the command !{0} [peace/deliberate/military]";
+    private readonly string TwitchHelpMessage = @"To press a certain button on the module, use the command !{0} [peace/deliberate/military] (You can use the first letter of the command as a shortcut)";
     #pragma warning restore 414
     IEnumerator ProcessTwitchCommand(string command)
     {
-		if (Regex.IsMatch(command, @"^\s*peace\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+		if (Regex.IsMatch(command, @"^\s*peace\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant) || Regex.IsMatch(command, @"^\s*p\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 			Buttons[0].OnInteract();
@@ -749,7 +764,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			}
         }
 		
-		if (Regex.IsMatch(command, @"^\s*deliberate\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+		if (Regex.IsMatch(command, @"^\s*deliberate\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant) || Regex.IsMatch(command, @"^\s*d\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 			Buttons[1].OnInteract();
@@ -760,7 +775,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			}
         }
 		
-		if (Regex.IsMatch(command, @"^\s*military\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
+		if (Regex.IsMatch(command, @"^\s*military\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant) || Regex.IsMatch(command, @"^\s*m\s*$", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant))
         {
             yield return null;
 			Buttons[2].OnInteract();
