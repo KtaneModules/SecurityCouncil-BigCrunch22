@@ -511,7 +511,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					string[] ToCycle = Attacks[ActualStage-1].ToUpper().Split(' ');
 					for (int x = 0; x < ToCycle.Length; x++)
 					{
-						if (ToCycle[x] == "SIMON" || ToCycle[x] == "MORSE")
+						if (Regex.IsMatch(ToCycle[x], "SIMON") || Regex.IsMatch(ToCycle[x], "MORSE"))
 						{
 							ScoreJudge++;
 							Judgement.Add("Liberia");
@@ -574,7 +574,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					string[] ToHell = Attacks[ActualStage-1].ToUpper().Split(' ');
 					for (int x = 0; x < ToHell.Length; x++)
 					{
-						if (ToHell[x] == "BUTTON" || ToHell[x] == "WIRES")
+						if (Regex.IsMatch(ToHell[x], "BUTTON") || Regex.IsMatch(ToHell[x], "WIRE"))
 						{
 							ScoreJudge++;
 							Judgement.Add("Senegal");
@@ -615,7 +615,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					string[] Chicken = Attacks[ActualStage-1].ToUpper().Split(' ');
 					for (int x = 0; x < Chicken.Length; x++)
 					{
-						if (Chicken[x] == "CIPHER")
+						if (Regex.IsMatch(Chicken[x], "CIPHER"))
 						{
 							ScoreJudge++;
 							Judgement.Add("Ukraine");
@@ -647,7 +647,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					string[] Pheonix = Attacks[ActualStage-1].ToUpper().Split(' ');
 					for (int x = 0; x < Pheonix.Length; x++)
 					{
-						if (Pheonix[x] == "MAZE")
+						if (Regex.IsMatch(Pheonix[x], "MAZE"))
 						{
 							ScoreJudge++;
 							Judgement.Add("Zimbabwe");
