@@ -564,7 +564,7 @@ public class SecurityCouncilScript : MonoBehaviour
 						Count += Attacks[ActualStage-1].ToUpper().ToCharArray().Count(c => c == AnotherVowels[x]);
 					}
 					
-					if (Int32.Parse(StageNumber.text) % Count == 0)
+					if (Count != 0 && Int32.Parse(StageNumber.text) % Count == 0)
 					{
 						ScoreJudge++;
 						Judgement.Add("Slovenia");
