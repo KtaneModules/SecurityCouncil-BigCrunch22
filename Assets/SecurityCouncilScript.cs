@@ -17,7 +17,7 @@ public class SecurityCouncilScript : MonoBehaviour
 	public SpriteRenderer[] FlagsImages;
 	public Sprite[] AllFlags, HigherUps;
 	public KMSelectable[] Buttons;
-	public TextMesh ModuleName, StageNumber;
+	public TextMesh ModuleName, StageNumber, Conditions;
 	public GameObject Earth, NonEarth;
 	
 	private string[] IgnoredModules;
@@ -29,6 +29,7 @@ public class SecurityCouncilScript : MonoBehaviour
 	int ScoreJudge = 0;
 	bool StillSolving = false, FinalInput = false, AbleToBeTouched = false;
 	int[] Score = {0, 0, 0};
+	List<List<int>> ScoreConditions = new List<List<int>>();
 	
 	
 	//Logging
@@ -176,8 +177,9 @@ public class SecurityCouncilScript : MonoBehaviour
 				
 				else
 				{
-					if ((Numbered == 0 && ScoreJudge < 4) || ((Numbered == 1 && ScoreJudge == 4) || (Numbered == 2 && ScoreJudge > 4)))
+					if (new[] {ScoreJudge}.Any(c => ScoreConditions[Numbered].Contains(c)))
 					{
+						Conditions.text = "";
 						TPCorrect = true;
 						StillSolving = false;
 						ModuleName.text = "";
@@ -683,6 +685,21 @@ public class SecurityCouncilScript : MonoBehaviour
 		}
 		Debug.LogFormat("[Security Council #{0}] {1}", moduleId, TheOneWhoAgreed);
 		StillSolving = true;
+		
+		ScoreConditions = new List<List<int>>();
+		int[] RegularScores = new int[] {1, 2, 3, 4, 5, 6}.Shuffle();
+		int[] ExtraScores = new int[] {7, 8, 9}.Shuffle();
+		for (int x = 0; x < 3; x++)
+		{
+			ScoreConditions.Add(new List<int>());
+			ScoreConditions[x].Add(RegularScores[x*2]);
+			ScoreConditions[x].Add(RegularScores[x*2 + 1]);
+			ScoreConditions[x].Add(ExtraScores[x]);
+			ScoreConditions[x].Sort();
+		}
+		ScoreConditions[UnityEngine.Random.Range(0,3)].Add(10);
+		Debug.LogFormat("[Security Council #{0}] Given vote conditions - Peace: {1 / Deliberate: {2} / Military: {3}", moduleId, ScoreConditions[0].ToArray().Join(", "), ScoreConditions[1].ToArray().Join(", "), ScoreConditions[2].ToArray().Join(", "));
+		Conditions.text = "Peace: " + ScoreConditions[0].ToArray().Join(", ") + "\nDeliberate: " + ScoreConditions[1].ToArray().Join(", ") + "\nMilitary: " + ScoreConditions[2].ToArray().Join(", ");
 	}
 	
 	bool IsPrime(int number)
