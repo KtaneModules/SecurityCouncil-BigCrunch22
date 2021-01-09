@@ -698,7 +698,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			ScoreConditions[x].Sort();
 		}
 		ScoreConditions[UnityEngine.Random.Range(0,3)].Add(10);
-		Debug.LogFormat("[Security Council #{0}] Given vote conditions - Peace: {1 / Deliberate: {2} / Military: {3}", moduleId, ScoreConditions[0].ToArray().Join(", "), ScoreConditions[1].ToArray().Join(", "), ScoreConditions[2].ToArray().Join(", "));
+		Debug.LogFormat("[Security Council #{0}] Given vote conditions - Peace: {1} / Deliberate: {2} / Military: {3}", moduleId, ScoreConditions[0].ToArray().Join(", "), ScoreConditions[1].ToArray().Join(", "), ScoreConditions[2].ToArray().Join(", "));
 		Conditions.text = "Peace: " + ScoreConditions[0].ToArray().Join(", ") + "\nDeliberate: " + ScoreConditions[1].ToArray().Join(", ") + "\nMilitary: " + ScoreConditions[2].ToArray().Join(", ");
 	}
 	
