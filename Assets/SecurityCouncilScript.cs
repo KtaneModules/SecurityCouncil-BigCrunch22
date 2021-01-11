@@ -803,4 +803,13 @@ public class SecurityCouncilScript : MonoBehaviour
 			}
         }
 	}
+	
+	IEnumerator TwitchHandleForcedSolve()
+    {
+        yield return null;
+        if (!ModuleSolved)
+		{
+			Endline();
+		}
+    }
 }
