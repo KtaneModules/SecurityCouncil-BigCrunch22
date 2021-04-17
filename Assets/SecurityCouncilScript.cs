@@ -568,7 +568,7 @@ public class SecurityCouncilScript : MonoBehaviour
 					}
 					break;
 				case "Slovakia":
-					if (Int32.Parse(StageNumber.text) % (Bomb.GetSolvableModuleNames().Count() + 1) == 0)
+					if (Int32.Parse(StageNumber.text) != 0 && (Bomb.GetSolvableModuleNames().Count()) %  Int32.Parse(StageNumber.text) == 0)
 					{
 						ScoreJudge++;
 						Judgement.Add("Slovakia");
@@ -749,7 +749,7 @@ public class SecurityCouncilScript : MonoBehaviour
 			Debug.LogFormat("[Security Council #{0}] The council was disturbed with an unnoticed arrival of new information.", moduleId);
 			Module.HandleStrike();
 		}
-		if (ActualStage % 5 == 0)
+		if (ActualStage % 10 == 0)
 		{
 			Debug.LogFormat("[Security Council #{0}] A new set of non-permanent members are seating on the council!", moduleId);
 			Randomize();
