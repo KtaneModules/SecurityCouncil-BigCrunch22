@@ -474,8 +474,8 @@ public class SecurityCouncilScript : MonoBehaviour
 					}
 					break;
 				case "Ecuador":
-					string[] ValidModules = {"Wire Sequence", "Wires", "Who's on First", "Simon Says", "Password", "Morse Code", "Memory", "Maze", "Keypad", "Complicated Wires", "The Button", "Not Wiresword", "Not Wire Sequence", "Not Who's on First", "Not Simaze", "Not Password", "Not Morse Code", "Not Memory", "Not Maze", "Not Keypad", "Not Complicated Wires", "Not the Button"};
-					if (Attacks[ActualStage-1].EqualsAny(ValidModules))
+					string[] ValidModules = {"Wire Sequence", "Wires", "Who's on First", "Simon Says", "Password", "Morse Code", "Memory", "Maze", "Keypad", "Complicated Wires", "The Button"};
+					if (Attacks[ActualStage-1].EqualsAny(ValidModules) || Attacks[ActualStage-1].ToUpper().Split(' ')[0] == "NOT")
 					{
 						ScoreJudge++;
 						Judgement.Add("Ecuador");
